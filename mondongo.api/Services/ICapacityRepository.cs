@@ -1,4 +1,4 @@
-namespace mondongo.ui.Services
+namespace mondongo.api.Services
 {
     public interface ICapacityRepository
     {

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using mondongo.ui.Services;
+using mondongo.api.Services;
 
-namespace mondongo.ui.Controllers
+namespace mondongo.api.Controllers
 {
     [ApiController]
     [Route("api/capacity")]

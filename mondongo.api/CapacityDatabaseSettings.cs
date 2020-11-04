@@ -1,4 +1,4 @@
-namespace mondongo.ui
+namespace mondongo.api
 {
     public class CapacityDatabaseSettings
     {

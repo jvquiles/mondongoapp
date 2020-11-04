@@ -2,7 +2,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
 
-namespace mondongo.ui.Services
+namespace mondongo.api.Services
 {
     public class CapacityRepository : ICapacityRepository
     {

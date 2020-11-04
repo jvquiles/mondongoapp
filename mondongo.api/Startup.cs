@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using mondongo.ui.Services;
+using mondongo.api.Services;
 
-namespace mondongo.ui
+namespace mondongo.api
 {
     public class Startup
     {

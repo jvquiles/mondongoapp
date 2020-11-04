@@ -1,17 +1,18 @@
-version: "3.8"
+version: "3.6"
 services:
-    ui:
+    api:
         build:
-            context: ./mondongo.ui
+            context: ./mondongo.api
             dockerfile: Dockerfile
         ports:
             - "80:80"
+            - "8080:8080"
         depends_on:
             - mongo
         networks:
             - custom
     mongo:
-        image: "mongo:4.0.4"
+        image: "mongo:4.4.1"
         networks:
             - custom
 networks:
