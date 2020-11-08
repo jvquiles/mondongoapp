@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "mondongo-ui"
+    }
+  },
+  "defaultProject": "mondongo-ui",
+  "cli": {
+    "analytics": false
+  }
 }
