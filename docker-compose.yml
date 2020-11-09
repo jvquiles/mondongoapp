@@ -2,11 +2,10 @@ version: "3.6"
 services:
     ui:
         build:
-            context: ./mondongo.ui
+            context: ./mondongo-ui
             dockerfile: Dockerfile
         ports:
-            - "80:81"
-            - "8080:8081"
+            - "81:80"
         networks:
             - back
     api:
