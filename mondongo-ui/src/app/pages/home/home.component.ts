@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,19 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  capacity: number = 0;
-  http: HttpClient;
-
-  constructor(http: HttpClient ) { 
-    this.http = http;
-  }
+  constructor() { }
 
   ngOnInit(): void {
-    this.loadCapacity();
   }
 
-  loadCapacity(){
-    this.http.get<number>("http://api/api/capacity")
-      .subscribe((data: number) => this.capacity = data);
-  }
 }
