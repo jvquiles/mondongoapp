@@ -20,6 +20,12 @@ namespace mondongo.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options => options.AddDefaultPolicy(policy => 
+            {
+                policy.AllowAnyOrigin();
+                policy.AllowAnyMethod();
+                policy.AllowAnyHeader();
+            }));
             services.Configure<CapacityDatabaseSettings>(this.Configuration.GetSection("CapacityDatabaseSettings"));
             services.AddScoped<ICapacityRepository, CapacityRepository>();
         }
@@ -33,6 +39,8 @@ namespace mondongo.api
             }
 
             // app.UseHttpsRedirection();
+
+            app.UseCors();
 
             app.UseRouting();
 
