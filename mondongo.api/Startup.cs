@@ -21,11 +21,12 @@ namespace mondongo.api
         {
             services.AddControllers();
             services.AddSignalR();
-            services.AddCors(options => options.AddDefaultPolicy(policy => 
+            services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => 
             {
-                policy.AllowAnyOrigin();
-                policy.AllowAnyMethod();
-                policy.AllowAnyHeader();
+                builder.WithOrigins("http://localhost:81");
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+                builder.AllowCredentials();
             }));
             services.Configure<CapacityDatabaseSettings>(this.Configuration.GetSection("CapacityDatabaseSettings"));
             services.AddScoped<ICapacityRepository, CapacityRepository>();
@@ -41,7 +42,7 @@ namespace mondongo.api
 
             // app.UseHttpsRedirection();
 
-            app.UseCors();
+            app.UseCors("AllowAllOrigins");
 
             app.UseRouting();
 

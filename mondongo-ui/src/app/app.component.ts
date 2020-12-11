@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import * as signalr from '@aspnet/signalr';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   capacity: number = 0;
+  private capacityhub: signalr.HubConnection;
 
-  constructor(private http: HttpClient) {    
+  constructor(private http: HttpClient) {
+    this.capacityhub = new signalr.HubConnectionBuilder()
+      .withUrl("http://localhost/capacityhub")
+      .build(); 
+
+    this.capacityhub.start().catch(err => console.log(err));
+    this.capacityhub.on("capacityupdate", (data) => this.capacity = data);
   }
 
   ngOnInit(){
@@ -25,12 +33,12 @@ export class AppComponent {
   increase(){
     this.http
       .post("http://localhost/api/capacity/increase", {})
-      .subscribe(x => this.load());
+      .subscribe(x => {});
   }
 
   decrease(){
     this.http
       .post("http://localhost/api/capacity/decrease", {})
-      .subscribe(x => this.load());    
+      .subscribe(x => {});
   }
 }
