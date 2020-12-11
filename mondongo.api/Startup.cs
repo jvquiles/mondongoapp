@@ -20,6 +20,7 @@ namespace mondongo.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSignalR();
             services.AddCors(options => options.AddDefaultPolicy(policy => 
             {
                 policy.AllowAnyOrigin();
@@ -49,6 +50,7 @@ namespace mondongo.api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<CapacityHub>("/capacityhub");
             });
         }
     }

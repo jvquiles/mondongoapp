@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
@@ -8,14 +9,16 @@ namespace mondongo.api.Services
     {
         private readonly DateTime EPOCH = new DateTime(1970, 1, 1);
         private readonly IMongoCollection<CapacityDocument> capacityCollection;
+        private readonly IHubContext<CapacityHub> capacityHub;
 
-        public CapacityRepository(IOptions<CapacityDatabaseSettings> capacityDatabaseSettingsOptions)
+        public CapacityRepository(IOptions<CapacityDatabaseSettings> capacityDatabaseSettingsOptions, IHubContext<CapacityHub> capacityHub)
         {
             CapacityDatabaseSettings capacityDatabaseSettings = capacityDatabaseSettingsOptions.Value;
             MongoClient client = new MongoClient(capacityDatabaseSettings.ConnectionString);
             var database = client.GetDatabase(capacityDatabaseSettings.DatabaseName);
 
             this.capacityCollection = database.GetCollection<CapacityDocument>(capacityDatabaseSettings.CapacityCollectionName);
+            this.capacityHub = capacityHub;
         }
         
         public void Increase()
@@ -25,6 +28,7 @@ namespace mondongo.api.Services
             capacityDocument.Capacity++;
 
             this.capacityCollection.ReplaceOne(x => x.Id == capacityDocument.Id, capacityDocument);
+            this.capacityHub.Clients.All.SendAsync("capacityupdate", capacityDocument.Capacity);
         }
 
         public void Decrease()
@@ -34,6 +38,7 @@ namespace mondongo.api.Services
             capacityDocument.Capacity--;
 
             this.capacityCollection.ReplaceOne(x => x.Id == capacityDocument.Id, capacityDocument);
+            this.capacityHub.Clients.All.SendAsync("capacityupdate", capacityDocument.Capacity);
         }
 
         public int GetCurrent()
