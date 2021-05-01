@@ -1,18 +1,13 @@
 version: "3.6"
 services:
-    ui:
-        build:
-            context: ./mondongo-ui
-            dockerfile: Dockerfile
-        ports:
-            - "81:80"
-            - "8081:8080"
+    mongo:
+        image: "mongo:4.4.1"
         networks:
-            - front
+            - back
     api:
         build:
-            context: ./mondongo.api
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: mondongo.api/Dockerfile
         ports:
             - "80:80"
             - "8080:8080"
@@ -21,10 +16,17 @@ services:
         networks:
             - front
             - back
-    mongo:
-        image: "mongo:4.4.1"
+    ui:
+        build:
+            context: ./mondongo-ui
+            dockerfile: Dockerfile
+        ports:
+            - "81:80"
+            - "8081:8080"
+        depends_on:
+            - api
         networks:
-            - back
+            - front
 networks:
     front:
         driver: bridge

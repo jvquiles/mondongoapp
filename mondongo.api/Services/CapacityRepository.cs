@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
+using mondongo.domain.services.capacity;
 using MongoDB.Driver;
 using System;
 

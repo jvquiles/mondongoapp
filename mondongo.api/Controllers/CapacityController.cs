@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using mondongo.api.Services;
+using mondongo.domain.services.capacity;
 
 namespace mondongo.api.Controllers
 {

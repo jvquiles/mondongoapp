@@ -1,4 +1,4 @@
-namespace mondongo.api.Services
+namespace mondongo.domain.services.capacity
 {
     public interface ICapacityRepository
     {
